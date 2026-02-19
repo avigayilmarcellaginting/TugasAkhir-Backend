@@ -38,7 +38,7 @@ class AuthController extends Controller
         return response()->json([
             'token_type' => 'Bearer',
             'user' => $userData
-        ])->cookie('access_token', $token, 60 * 24, null, null, false, true);
+        ])->cookie('access_token', $token, 60 * 24, '/', null, true, true, false, 'None');
     }
 
     public function register(Request $request)
@@ -99,7 +99,7 @@ class AuthController extends Controller
                 'message' => 'User and Business successfully registered',
                 'user' => $user->load('tenant', 'roles', 'branch'),
                 'token_type' => 'Bearer',
-            ], 201)->cookie('access_token', $token, 60 * 24, null, null, false, true);
+            ], 201)->cookie('access_token', $token, 60 * 24, '/', null, true, true, false, 'None');
         });
     }
 
@@ -114,7 +114,7 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Successfully logged out'])
-            ->cookie('access_token', '', -1, null, null, false, true);
+            ->cookie('access_token', '', -1, '/', null, true, true, false, 'None');
     }
 
     public function updateProfile(Request $request)
