@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\PromotionController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\TenantController;
 
 
 Route::get('/user', function (Request $request) {
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/cash-flow', [ReportController::class, 'cashFlow']);
         Route::get('/shifts', [ReportController::class, 'shiftLog']);
     });
+
+    Route::post('/tenant/upgrade', [TenantController::class, 'upgrade']);
 
     Route::get('/dashboard/admin', [DashboardController::class, 'admin']);
 });
